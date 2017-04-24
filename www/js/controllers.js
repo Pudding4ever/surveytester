@@ -52,10 +52,12 @@ function ($scope, $stateParams) {
     '$scope', '$rootScope', '$firebaseAuth', '$window',
     function ($scope, $rootScope, $firebaseAuth, $window) {
       $scope.user = {
+        username : "",
         email: "",
         password: ""
       };
       $scope.createUser = function () {
+        var username = this.user.username;
         var email = this.user.email;
         var password = this.user.password;
 
