@@ -28,7 +28,7 @@ angular.module('app', ['ionic', 'firebase', 'app.controllers', 'app.routes', 'ap
     }
 
     $rootScope.userEmail = null;
-    $rootScope.baseUrl = 'https://bucketlist-app.firebaseio.com/';
+    $rootScope.baseUrl = 'https://ionic-survey-app.firebaseio.com';
     var authRef = new Firebase($rootScope.baseUrl);
     $rootScope.auth = $firebaseAuth(authRef);
 
