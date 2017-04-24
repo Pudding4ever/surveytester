@@ -1,5 +1,4 @@
 angular.module('app.controllers', [])
-angular.module('bindExample', [])
 
 .controller('homeLoginCtrl', ['$scope', '$rootScope', '$stateParams', '$window', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
@@ -110,6 +109,7 @@ angular.module('bindExample', [])
                     $rootScope.hide();
                     $rootScope.userEmail = user.email;
                     $window.location.href = ('/page1/page5');
+                    //$window.location.href = ('#/page2');
                 } else {
                     $rootScope.hide();
                     if (error.code == 'INVALID_EMAIL') {
@@ -169,8 +169,3 @@ angular.module('bindExample', [])
 
     }
 ])
-
-.controller('ExampleController', ['$scope', '$rootScope', '$firebaseAuth', function($scope, $rootScope, $firebaseAuth) {
-    $scope.name = 'Whirled';
-    $rootScope.userEmail = user.email;
-}]);
