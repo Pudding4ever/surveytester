@@ -56,12 +56,13 @@ function ($scope, $stateParams) {
         email: "",
         password: ""
       };
-      $scope.createUser = function () {
+      $scope.createUser = function (input1, input2, input3) {
         console.log("create user called");
 
-        var username = this.user.username;
-        var email = this.user.email;
-        var password = this.user.password;
+        var username = input1;
+        var email = input2;
+        var password = input3;
+        console.log(this.user.username, this.user.email, this.user.password);
 
         if (!username || !email || !password) {
           $rootScope.notify("Please enter valid credentials");
@@ -70,7 +71,7 @@ function ($scope, $stateParams) {
         }
 
         $rootScope.show('Please wait.. Registering');
-        $rootScope.auth.$createUser(email, password, function (error, user) {
+        $rootScope.auth.$createUser(username, email, password, function (error, user) {
           if (!error) {
             $rootScope.hide();
             $rootScope.userEmail = user.email;
