@@ -10,6 +10,15 @@ angular.module('app.controllers', [])
         }*/
         firebase.auth().signOut().then(function() {
             $window.location.href = ('#/page8');
+
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    console.log("Sign In Success", user);
+                } else {
+                    console.log("NOT SIGNED IN!", user);
+                }
+            });
+
         }).catch(function(error) {
             // An error happened.
         });
@@ -54,6 +63,9 @@ angular.module('app.controllers', [])
 
 .controller('loginCtrl', ['$scope', '$rootScope', '$firebaseAuth', '$window',
     function($scope, $rootScope, $firebaseAuth, $window) {
+        $scope.name = "";
+        $scope.names = "";
+        var emails;
         // check session
         $rootScope.checkSession();
         $scope.user = {
@@ -64,6 +76,7 @@ angular.module('app.controllers', [])
             $rootScope.show('Please wait.. Authenticating');
             var email = this.user.email;
             var password = this.user.password;
+            $scope.name = this.user.email;
             if (!email || !password) {
                 $rootScope.notify("Please enter valid credentials");
                 return false;
@@ -75,7 +88,9 @@ angular.module('app.controllers', [])
                 .then(function(user) {
                     $rootScope.hide();
                     $rootScope.userEmail = user.email;
-                    var el = document.getElementById('content').textContent;
+                    $scope.names = user.email;
+                    $scope.namez = $rootScope.userEmail;
+                    //var el = document.getElementById('content').textContent;
                     //$window.location.href = ('/page1/page2'); //
                     $window.location.href = ('#/page2');
                 }, function(error) {

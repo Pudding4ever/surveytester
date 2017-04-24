@@ -1,12 +1,23 @@
+<script>
+    var user = firebase.auth().currentUser;
+    var prevUser = auth.currentUser;
+    document.getElementById("demo").innerHTML = user;
+    document.getElementById("memo").innerHTML = prevUser;
+
+    function myFunction() {
+        console.log("Sign In Success", user);
+    }
+</script>
 <ion-view title="Home - Login" id="page2" style="background-color:#DFFFFF;">
-    <ion-content padding="true" class="has-header" ng-controller="homeLoginCtrl">
+    <ion-content padding="true" class="has-header" ng-controller="homeLoginCtrl" onload="myFunction()">
         <div id="homeLogin-button-bar1" class="button-bar"></div>
         <div class="list card" id="homeLogin-card22">
             <ion-item class="item-avatar" id="homeLogin-list-item7">
 
                 <div ng-controller="loginCtrl">
-                    Hello, <span ng-bind="user.email"></span>!
+                    Hello, <span id="demo" ng-bind="email" ng-bind="names" ng-bind="name" ng-bind="namez"></span>!
                 </div>
+                <p id="memo"></p>
             </ion-item>
             <a ui-sref="tabsController.home" id="homeLogin-button8" class="button button-positive  button-block" ng-click="signOut()">Logout</a>
         </div>
