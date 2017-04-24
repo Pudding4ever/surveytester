@@ -5,7 +5,6 @@ angular.module('app.controllers', [])
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $rootScope, $stateParams, $window) {
         var user = firebase.auth().currentUser;
-        var prevUser = auth.currentUser;
         var baseUrl = 'https://ionic-survey-app.firebaseio.com/';
         var ref = new Firebase(baseUrl);
         var email, EM, EM2;
@@ -34,7 +33,8 @@ angular.module('app.controllers', [])
                 firebase.auth().signOut().then(function() { //fix
                     firebase.auth().onAuthStateChanged(function(user) {
                         if (user) {
-                            console.log("Sign In Success", user);
+                            console.log("LOGGING OUT!", user);
+                            $window.location.href = ('#/page8'); //see if this show be in inner or outer function
                         } else {
                             console.log("LOGGING OUT!", user);
                             $window.location.href = ('#/page8'); //see if this show be in inner or outer function
@@ -44,7 +44,7 @@ angular.module('app.controllers', [])
 
                 }).catch(function(error) {
                     alert(error.code + " - " + error.message);
-
+                    $window.location.href = ('#/page8'); //see if this show be in inner or outer function
                 });
             }
 
@@ -138,7 +138,7 @@ const credential = firebase.auth.EmailAuthProvider.credential(
                         if (!error) {
                             $rootScope.hide();
                             $rootScope.userEmail = user.email;
-                            console.log("(Login) RootScope.getAuth: " + $rootScope.getAuthEmailPass + " - rootScoprAuth:" + $rootScope.auth.getAuth().password.email);
+                            console.log("(Login)rootScopeAuth:" + $rootScope.auth.getAuth().password.email + );
                             //$window.location.href = ('/page1/page5');
                             $window.location.href = ('#/page2');
                         } else {
@@ -153,7 +153,6 @@ const credential = firebase.auth.EmailAuthProvider.credential(
                                     {
                                         alert(error.code + " - " + error.message);
                                         //$window.location.href = ('#/page5');
-
                                         break;
                                     }
                                 case 'auth/wrong-password':
@@ -166,7 +165,6 @@ const credential = firebase.auth.EmailAuthProvider.credential(
                                     {
                                         alert(error.code + " - " + error.message);
                                         //$window.location.href = ('#/page5');
-
                                         break;
                                     }
                                 default:

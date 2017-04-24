@@ -1,8 +1,7 @@
 <script>
-    angular.module('app', ['ionic', 'firebase', 'app.controllers', 'app.routes', 'app.directives', 'app.services', ])
+    angular.module('app.controllers', [])
 
     var user = firebase.auth().currentUser;
-    var prevUser = auth.currentUser;
     var baseUrl = 'https://ionic-survey-app.firebaseio.com/';
     var ref = new Firebase(baseUrl);
     //var getAuthEmailPass = ref.getAuth().password.email; //not a function
