@@ -4,10 +4,15 @@ angular.module('app.controllers', [])
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $rootScope, $stateParams, $window) {
-        $rootScope.logout = function() {
+        /*$rootScope.logout = function() {
             $rootScope.auth.$logout();
             $window.location.href = ('#/page8');
-        }
+        }*/
+        firebase.auth().signOut().then(function() {
+            $window.location.href = ('#/page8');
+        }).catch(function(error) {
+            // An error happened.
+        });
     }
 ])
 
@@ -70,6 +75,7 @@ angular.module('app.controllers', [])
                 .then(function(user) {
                     $rootScope.hide();
                     $rootScope.userEmail = user.email;
+                    var el = document.getElementById('content').textContent;
                     //$window.location.href = ('/page1/page2'); //
                     $window.location.href = ('#/page2');
                 }, function(error) {
