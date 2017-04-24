@@ -1,10 +1,31 @@
 angular.module('app.controllers', [])
 
-.controller('homeLoginCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('homeLoginCtrl', ['$scope', '$rootScope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams) {
+    function($scope, $rootScope, $stateParams) {
+        $rootScope.logout = function() {
+            $rootScope.auth.$logout();
+            $rootScope.checkSession();
+        };
 
+        $rootScope.checkSession = function() {
+            var auth = new FirebaseSimpleLogin(authRef, function(error, user) {
+                if (error) {
+                    // no action yet.. redirect to default route
+                    $rootScope.userEmail = null;
+                    $window.location.href = '#/page1/page6';
+                } else if (user) {
+                    // user authenticated with Firebase
+                    $rootScope.userEmail = user.email;
+                    $window.location.href = ('#/page1/page2');
+                } else {
+                    // user is logged out
+                    $rootScope.userEmail = null;
+                    $window.location.href = '#/page1/page6';
+                }
+            });
+        }
 
     }
 ])
