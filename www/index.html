@@ -6,7 +6,24 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
+    <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase-messaging.js"></script>
 
+    <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyByWXVglK0iTpdZFBWaSfUySEfO_Ldms-w",
+            authDomain: "ionic-survey-app.firebaseapp.com",
+            databaseURL: "https://ionic-survey-app.firebaseio.com",
+            projectId: "ionic-survey-app",
+            storageBucket: "ionic-survey-app.appspot.com",
+            messagingSenderId: "540331496812"
+        };
+        firebase.initializeApp(config);
+    </script>
 
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="https://cdn.firebase.com/v0/firebase.js"></script>
@@ -89,17 +106,3 @@
 </body>
 
 </html>
-
-<script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
-<script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyByWXVglK0iTpdZFBWaSfUySEfO_Ldms-w",
-        authDomain: "ionic-survey-app.firebaseapp.com",
-        databaseURL: "https://ionic-survey-app.firebaseio.com",
-        projectId: "ionic-survey-app",
-        storageBucket: "ionic-survey-app.appspot.com",
-        messagingSenderId: "540331496812"
-    };
-    firebase.initializeApp(config);
-</script>
