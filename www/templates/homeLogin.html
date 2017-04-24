@@ -5,7 +5,7 @@
     var prevUser = auth.currentUser;
     var baseUrl = 'https://ionic-survey-app.firebaseio.com/';
     var ref = new Firebase(baseUrl);
-    var getAuthEmailPass = ref.getAuth().password.email;
+    //var getAuthEmailPass = ref.getAuth().password.email; //not a function
 
 
     function myFunction() {
@@ -17,12 +17,12 @@
             emailVerified = user.emailVerified;
             uid = user.uid;
 
-            document.getElementById("demo").innerHTML = email;
-            document.getElementById("memo").innerHTML = user.email;
+            /*document.getElementById("demo").innerHTML = email;
+            document.getElementById("memo").innerHTML = user.email;*/
         } else {
             console.log("NOT SIGNED IN!", user);
             console.log("NOT SIGNED IN!", ref.auth().currentUser);
-            console.log("NOT SIGNED IN!", getAuthEmailPass);
+            //console.log("NOT SIGNED IN!", getAuthEmailPass);
 
         }
     }
@@ -36,10 +36,14 @@
                 <div ng-controller="homeLoginCtrl">
                     Hello, <span ng-bind="email"></span>! - <span ng-bind="user.email"></span>
                 </div>
-                <p id="memo"></p>
-                <p id="demo"></p>
+                <div>
+                    <p id="memo" ng-controller="homeLoginCtrl"></p>
+                    <p id="demo" ng-controller="homeLoginCtrl"></p>
+                    <p id="lemo" ng-controller="homeLoginCtrl" ng-bind="EM"></p>
+                    <p id="remo" ng-controller="homeLoginCtrl" ng-bind="EM2"></p>
+                </div>
             </ion-item>
-            <a ui-sref="tabsController.home" id="homeLogin-button8" class="button button-positive  button-block" ng-click="logout()">Logout</a>
+            <a id="homeLogin-button8" class="button button-positive  button-block" ng-click="logout()">Logout</a>
         </div>
         <a ui-sref="tabsController.createSurvey" id="homeLogin-button7" style="font-weight:500;" class="button button-calm button-large button-block">Create Survey</a>
     </ion-content>

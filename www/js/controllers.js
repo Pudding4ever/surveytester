@@ -4,24 +4,41 @@ angular.module('app.controllers', [])
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $rootScope, $stateParams, $window) {
-        var email; //nd bind to homeLogin
+        var user = firebase.auth().currentUser;
+        var prevUser = auth.currentUser;
+        var baseUrl = 'https://ionic-survey-app.firebaseio.com/';
+        var ref = new Firebase(baseUrl);
+        var email, EM, EM2;
+
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 console.log("Sign In Success", user);
-                email = this.user.email;
+                if (user != null) {
+                    email = user.email;
+                    document.getElementById("demo").innerHTML = user.email;
+                    document.getElementById("memo").innerHTML = email;
+                    EM = document.getElementById("lemo") = email;
+                    EM2 = document.getElementById("remo") = email;
+                } else {
+                    email = "Anonymous";
+                    document.getElementById("demo").innerHTML = "Anonymous";
+                    document.getElementById("memo").innerHTML = "Anonymous";
+                    EM = document.getElementById("lemo") = "Anonymous";
+                    EM2 = document.getElementById("remo") = "Anonymous";
+                }
             } else {
                 console.log("NOT SIGNED IN!", user);
             }
 
             $rootScope.logout = function() {
                 firebase.auth().signOut().then(function() { //fix
-                    $window.location.href = ('#/page8'); //see if this show be in inner or outer function
-
                     firebase.auth().onAuthStateChanged(function(user) {
                         if (user) {
                             console.log("Sign In Success", user);
                         } else {
-                            console.log("NOT SIGNED IN!", user);
+                            console.log("LOGGING OUT!", user);
+                            $window.location.href = ('#/page8'); //see if this show be in inner or outer function
+
                         }
                     });
 
