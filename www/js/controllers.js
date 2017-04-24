@@ -12,15 +12,15 @@ angular.module('app.controllers', [])
                 if (error) {
                     // no action yet.. redirect to default route
                     $rootScope.userEmail = null;
-                    $window.location.href = ('#/page1/page6');
+                    $window.location.href = '#/page1/page5';
                 } else if (user) {
                     // user authenticated with Firebase
                     $rootScope.userEmail = user.email;
-                    $window.location.href = ('#/page1/page2');
+                    $window.location.href = ('#/page1/page8');
                 } else {
                     // user is logged out
                     $rootScope.userEmail = null;
-                    $window.location.href = ('#/page1/page6');
+                    $window.location.href = '#/page1/page5';
                 }
             });
         }
