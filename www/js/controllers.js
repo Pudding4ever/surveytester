@@ -2,9 +2,11 @@ angular.module('app.controllers', [])
 
 .controller('homeLoginCtrl', ['$scope', '$rootScope', '$firebaseAuth', '$window',
     function($scope, $rootScope, $firebaseAuth, $window) {
+        let title = user.email;
+        let title2 = $rootScope.userEmail;
         $rootScope.logout = function() {
             $rootScope.auth.$logout();
-            $rootScope.checkSession();
+            //$rootScope.checkSession();
         };
 
         $rootScope.checkSession = function() {
