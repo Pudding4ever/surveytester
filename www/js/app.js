@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives','app.services',])
+angular.module('app', ['ionic', 'firebase', 'app.controllers', 'app.routes', 'app.directives','app.services'])
 
 .config(function($ionicConfigProvider, $sceDelegateProvider){
   
@@ -14,7 +14,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 
 })
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, $firebaseAuth, $firebase, $window, $ionicLoading) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -26,8 +26,58 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    $rootScope.userEmail = null;
+    $rootScope.baseUrl = 'https://bucketlist-app.firebaseio.com/';
+    var authRef = new Firebase($rootScope.baseUrl);
+    $rootScope.auth = $firebaseAuth(authRef);
+
+    $rootScope.show = function(text) {
+      $rootScope.loading = $ionicLoading.show({
+        content: text ? text : 'Loading..',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+      });
+    };
+
+    $rootScope.hide = function() {
+      $ionicLoading.hide();
+    };
+
+    $rootScope.notify = function(text) {
+      $rootScope.show(text);
+      $window.setTimeout(function() {
+        $rootScope.hide();
+      }, 1999);
+    };
+
+    $rootScope.logout = function() {
+      $rootScope.auth.$logout();
+      $rootScope.checkSession();
+    };
+
+    $rootScope.checkSession = function() {
+      var auth = new FirebaseSimpleLogin(authRef, function(error, user) {
+        if (error) {
+          // no action yet.. redirect to default route
+          $rootScope.userEmail = null;
+          $window.location.href = '#/page8';
+        } else if (user) {
+          // user authenticated with Firebase
+          $rootScope.userEmail = user.email;
+          $window.location.href = ('#/page3');
+        } else {
+          // user is logged out
+          $rootScope.userEmail = null;
+          $window.location.href = '#/page8';
+        }
+      });
+    }
   });
 })
+
 
 /*
   This directive is used to disable the "drag to open" functionality of the Side-Menu
