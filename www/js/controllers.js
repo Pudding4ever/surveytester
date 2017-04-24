@@ -4,32 +4,59 @@ angular.module('app.controllers', [])
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $rootScope, $stateParams, $window) {
-        /*$rootScope.logout = function() {
-            $rootScope.auth.$logout();
-            $window.location.href = ('#/page8');
-        }*/
-        firebase.auth().signOut().then(function() {
-            $window.location.href = ('#/page8');
+        var email; //nd bind to homeLogin
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                console.log("Sign In Success", user);
+                email = this.user.email;
+            } else {
+                console.log("NOT SIGNED IN!", user);
+            }
 
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    console.log("Sign In Success", user);
-                } else {
-                    console.log("NOT SIGNED IN!", user);
-                }
-            });
+            $rootScope.logout = function() {
+                firebase.auth().signOut().then(function() { //fix
+                    $window.location.href = ('#/page8'); //see if this show be in inner or outer function
 
-        }).catch(function(error) {
-            // An error happened.
-        });
+                    firebase.auth().onAuthStateChanged(function(user) {
+                        if (user) {
+                            console.log("Sign In Success", user);
+                        } else {
+                            console.log("NOT SIGNED IN!", user);
+                        }
+                    });
+
+                }).catch(function(error) {
+                    alert(error.code + " - " + error.message);
+
+                });
+            }
+
+            /* const user = firebase.auth().currentUser;
+const credential = firebase.auth.EmailAuthProvider.credential(
+    user.email, 
+    userProvidedPassword
+); -- use ng-bind for that variabele to parse to homeLogin*/
+        })
     }
 ])
 
-.controller('homeCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('homeCtrl', ['$scope', '$rootScope', '$stateParams', '$window', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams) {
+    function($scope, $rootScope, $stateParams, $window) {
+        $rootScope.anon = function() {
+                firebase.auth().signInAnonymously().catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
 
+                    if (errorCode === 'auth/operation-not-allowed') {
+                        alert('You must enable Anonymous auth in the Firebase Console.');
+                    } else {
+                        alert(error.code + " - " + error.message);
+                    }
+                });
+            } //- do a guest button on home screen
 
     }
 ])
@@ -80,6 +107,7 @@ angular.module('app.controllers', [])
                         // ...
                     });*/
 
+
             $scope.validateUser = function() {
                     //$rootScope.show('Please wait.. Authenticating');
                     var email = this.user.email;
@@ -95,42 +123,71 @@ angular.module('app.controllers', [])
                             $rootScope.userEmail = user.email;
                             console.log("(Login) RootScope.getAuth: " + $rootScope.getAuthEmailPass + " - rootScoprAuth:" + $rootScope.auth.getAuth().password.email);
                             //$window.location.href = ('/page1/page5');
-                            $window.location.href = ('#/page5');
-                        } else if (error.code == 'INVALID_EMAIL') {
-                            $rootScope.notify('Invalid Email Address');
-                        } else if (error.code == 'EMAIL_TAKEN') {
-                            $rootScope.notify('Email Address already taken');
+                            $window.location.href = ('#/page2');
                         } else {
-                            $rootScope.notify('Oops something went wrong. Please try again later');
+                            switch (error.code) {
+                                case 'auth/invalid-email':
+                                    {
+                                        alert(error.code + " - " + error.message);
+                                        //$window.location.href = ('#/page5');
+                                        break;
+                                    }
+                                case 'auth/user-not-found':
+                                    {
+                                        alert(error.code + " - " + error.message);
+                                        //$window.location.href = ('#/page5');
+
+                                        break;
+                                    }
+                                case 'auth/wrong-password':
+                                    {
+                                        alert(error.code + " - " + error.message);
+                                        //$window.location.href = ('#/page5');
+                                        break;
+                                    }
+                                case 'auth/user-not-found':
+                                    {
+                                        alert(error.code + " - " + error.message);
+                                        //$window.location.href = ('#/page5');
+
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        alert(error.code + " - " + error.message);
+                                        //$window.location.href = ('#/page5');
+                                        break;
+                                    }
+                            }
                         }
 
                     });
                 }
                 /*$rootScope.auth.$login('password', {
-                        email: email,
-                        password: password
-                    })
-                    .then(function (user) {
-                        $rootScope.hide();
-                        $rootScope.userEmail = user.email;
-                        //$scope.names = user.email;
-                        //$scope.namez = $rootScope.userEmail;
-                        //var el = document.getElementById('content').textContent;
-                        //$window.location.href = ('/page1/page2'); //
-                        $window.location.href = ('#/page2');
-                    }, function (error) {
-                        $rootScope.hide();
-                        if (error.code == 'INVALID_EMAIL') {
-                            $rootScope.notify('Invalid Email Address');
-                        } else if (error.code == 'INVALID_PASSWORD') {
-                            $rootScope.notify('Invalid Password');
-                        } else if (error.code == 'INVALID_USER') {
-                            $rootScope.notify('Invalid User');
-                        } else {
-                            $rootScope.notify('Oops something went wrong. Please try again later');
-                        }
-                    });
-            }*/
+                            email: email,
+                            password: password
+                        })
+                        .then(function (user) {
+                            $rootScope.hide();
+                            $rootScope.userEmail = user.email;
+                            //$scope.names = user.email;
+                            //$scope.namez = $rootScope.userEmail;
+                            //var el = document.getElementById('content').textContent;
+                            //$window.location.href = ('/page1/page2'); //
+                            $window.location.href = ('#/page2');
+                        }, function (error) {
+                            $rootScope.hide();
+                            if (error.code == 'INVALID_EMAIL') {
+                                $rootScope.notify('Invalid Email Address');
+                            } else if (error.code == 'INVALID_PASSWORD') {
+                                $rootScope.notify('Invalid Password');
+                            } else if (error.code == 'INVALID_USER') {
+                                $rootScope.notify('Invalid User');
+                            } else {
+                                $rootScope.notify('Oops something went wrong. Please try again later');
+                            }
+                        });
+                }*/
 
         }
     ])
@@ -172,13 +229,51 @@ const credential = firebase.auth.EmailAuthProvider.credential(
                     console.log("RootScope.getAuth: " + $rootScope.getAuthEmailPass + " - rootScoprAuth:" + $rootScope.auth.getAuth().password.email);
                     //$window.location.href = ('/page1/page5');
                     $window.location.href = ('#/page5');
-                } else if (error.code == 'INVALID_EMAIL') {
-                    $rootScope.notify('Invalid Email Address');
-                } else if (error.code == 'EMAIL_TAKEN') {
-                    $rootScope.notify('Email Address already taken');
                 } else {
-                    $rootScope.notify('Oops something went wrong. Please try again later');
+                    switch (error.code) {
+                        case 'auth/email-already-in-use':
+                            {
+                                alert(error.code + " - " + error.message);
+                                //$window.location.href = ('#/page6');
+                                break;
+                            }
+                        case 'auth/invalid-email':
+                            {
+                                alert(error.code + " - " + error.message);
+                                //$window.location.href = ('#/page6');
+
+                                break;
+                            }
+                        case 'auth/email-already-in-use':
+                            {
+                                alert(error.code + " - " + error.message);
+                                //$window.location.href = ('#/page6');
+                                break;
+                            }
+                        case 'auth/weak-password':
+                            {
+                                alert(error.code + " - " + error.message);
+                                //$window.location.href = ('#/page6');
+
+                                break;
+                            }
+                        default:
+                            {
+                                alert(error.code + " - " + error.message);
+                                //$window.location.href = ('#/page6');
+
+                                break;
+                            }
+                    }
                 }
+                /*
+                                    if (error.code == 'INVALID_EMAIL') {
+                                        alert(error.code);
+                                    } else if (error.code == 'EMAIL_TAKEN') {
+                                        alert(error.code);
+                                    } else {
+                                        alert(error.code);
+                                    }*/
             });
 
             /*firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {

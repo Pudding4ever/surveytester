@@ -17,8 +17,8 @@
             emailVerified = user.emailVerified;
             uid = user.uid;
 
-            document.getElementById("demo").innerHTML = user.email;
-            document.getElementById("memo").innerHTML = user.displayName;
+            document.getElementById("demo").innerHTML = email;
+            document.getElementById("memo").innerHTML = user.email;
         } else {
             console.log("NOT SIGNED IN!", user);
             console.log("NOT SIGNED IN!", ref.auth().currentUser);
@@ -33,12 +33,13 @@
         <div class="list card" id="homeLogin-card22">
             <ion-item class="item-avatar" id="homeLogin-list-item7">
 
-                <div ng-controller="loginCtrl">
-                    Hello, <span id="demo" ng-bind="email" ng-bind="names" ng-bind="name" ng-bind="namez"></span>!
+                <div ng-controller="homeLoginCtrl">
+                    Hello, <span ng-bind="email"></span>! - <span ng-bind="user.email"></span>
                 </div>
                 <p id="memo"></p>
+                <p id="demo"></p>
             </ion-item>
-            <a ui-sref="tabsController.home" id="homeLogin-button8" class="button button-positive  button-block" ng-click="signOut()">Logout</a>
+            <a ui-sref="tabsController.home" id="homeLogin-button8" class="button button-positive  button-block" ng-click="logout()">Logout</a>
         </div>
         <a ui-sref="tabsController.createSurvey" id="homeLogin-button7" style="font-weight:500;" class="button button-calm button-large button-block">Create Survey</a>
     </ion-content>
