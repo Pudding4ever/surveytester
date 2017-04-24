@@ -63,8 +63,9 @@ function ($scope, $stateParams) {
         var email = this.user.email;
         var password = this.user.password;
 
-        if (!email || !password) {
+        if (!username || !email || !password) {
           $rootScope.notify("Please enter valid credentials");
+          console.log("credentials error");
           return false;
         }
 
