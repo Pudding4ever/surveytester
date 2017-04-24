@@ -1,11 +1,10 @@
 <script>
-    angular.module('app.controllers', [])
-
+    angular.module('app', ['ionic', 'firebase', 'app.controllers', 'app.routes', 'app.directives', 'app.services', ])
     var user = firebase.auth().currentUser;
     var baseUrl = 'https://ionic-survey-app.firebaseio.com/';
     var ref = new Firebase(baseUrl);
     //var getAuthEmailPass = ref.getAuth().password.email; //not a function
-
+    var name, email, photoUrl, uid, emailVerified;
 
     function myFunction() {
         console.log("EXECUTE FUNCTION");
@@ -38,8 +37,6 @@
                 <div>
                     <p id="memo" ng-controller="homeLoginCtrl"></p>
                     <p id="demo" ng-controller="homeLoginCtrl"></p>
-                    <p id="lemo" ng-controller="homeLoginCtrl" ng-bind="EM"></p>
-                    <p id="remo" ng-controller="homeLoginCtrl" ng-bind="EM2"></p>
                 </div>
             </ion-item>
             <a id="homeLogin-button8" class="button button-positive  button-block" ng-click="logout()">Logout</a>

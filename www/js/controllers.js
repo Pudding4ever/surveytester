@@ -7,7 +7,7 @@ angular.module('app.controllers', [])
         var user = firebase.auth().currentUser;
         var baseUrl = 'https://ionic-survey-app.firebaseio.com/';
         var ref = new Firebase(baseUrl);
-        var email, EM, EM2;
+        var email;
 
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
@@ -16,14 +16,10 @@ angular.module('app.controllers', [])
                     email = user.email;
                     document.getElementById("demo").innerHTML = user.email;
                     document.getElementById("memo").innerHTML = email;
-                    EM = document.getElementById("lemo") = email;
-                    EM2 = document.getElementById("remo") = email;
                 } else {
                     email = "Anonymous";
                     document.getElementById("demo").innerHTML = "Anonymous";
                     document.getElementById("memo").innerHTML = "Anonymous";
-                    EM = document.getElementById("lemo") = "Anonymous";
-                    EM2 = document.getElementById("remo") = "Anonymous";
                 }
             } else {
                 console.log("NOT SIGNED IN!", user);
