@@ -31,6 +31,7 @@ angular.module('app', ['ionic', 'firebase', 'app.controllers', 'app.routes', 'ap
         $rootScope.baseUrl = 'https://ionic-survey-app.firebaseio.com/';
         var authRef = new Firebase($rootScope.baseUrl);
         $rootScope.auth = $firebaseAuth(authRef);
+        $rootScope.getAuthEmailPass = authRef.getAuth().password.email;
 
         $rootScope.show = function(text) {
             $rootScope.loading = $ionicLoading.show({

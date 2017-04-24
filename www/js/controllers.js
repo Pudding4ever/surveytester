@@ -62,52 +62,94 @@ angular.module('app.controllers', [])
 ])
 
 .controller('loginCtrl', ['$scope', '$rootScope', '$firebaseAuth', '$window',
-    function($scope, $rootScope, $firebaseAuth, $window) {
-        $scope.name = "";
-        $scope.names = "";
-        var emails;
-        // check session
-        $rootScope.checkSession();
-        $scope.user = {
-            email: "",
-            password: ""
-        };
-        $scope.validateUser = function() {
-            $rootScope.show('Please wait.. Authenticating');
-            var email = this.user.email;
-            var password = this.user.password;
-            $scope.name = this.user.email;
-            if (!email || !password) {
-                $rootScope.notify("Please enter valid credentials");
-                return false;
-            }
-            $rootScope.auth.$login('password', {
-                    email: email,
-                    password: password
-                })
-                .then(function(user) {
-                    $rootScope.hide();
-                    $rootScope.userEmail = user.email;
-                    $scope.names = user.email;
-                    $scope.namez = $rootScope.userEmail;
-                    //var el = document.getElementById('content').textContent;
-                    //$window.location.href = ('/page1/page2'); //
-                    $window.location.href = ('#/page2');
-                }, function(error) {
-                    $rootScope.hide();
-                    if (error.code == 'INVALID_EMAIL') {
-                        $rootScope.notify('Invalid Email Address');
-                    } else if (error.code == 'INVALID_PASSWORD') {
-                        $rootScope.notify('Invalid Password');
-                    } else if (error.code == 'INVALID_USER') {
-                        $rootScope.notify('Invalid User');
-                    } else {
-                        $rootScope.notify('Oops something went wrong. Please try again later');
-                    }
-                });
+        function($scope, $rootScope, $firebaseAuth, $window) {
+            //$scope.name = "";
+            //$scope.names = "";
+            //var emails;
+            // check session
+
+            //$rootScope.checkSession();
+            $scope.user = {
+                email: "",
+                password: ""
+            };
+            /*firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+                        // Handle Errors here.
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        // ...
+                    });*/
+
+            $scope.validateUser = function() {
+                    //$rootScope.show('Please wait.. Authenticating');
+                    var email = this.user.email;
+                    var password = this.user.password;
+                    //$scope.name = this.user.email;
+                    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+                        // Handle Errors here.
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+
+                        if (!error) {
+                            $rootScope.hide();
+                            $rootScope.userEmail = user.email;
+                            console.log("(Login) RootScope.getAuth: " + $rootScope.getAuthEmailPass + " - rootScoprAuth:" + $rootScope.auth.getAuth().password.email);
+                            //$window.location.href = ('/page1/page5');
+                            $window.location.href = ('#/page5');
+                        } else if (error.code == 'INVALID_EMAIL') {
+                            $rootScope.notify('Invalid Email Address');
+                        } else if (error.code == 'EMAIL_TAKEN') {
+                            $rootScope.notify('Email Address already taken');
+                        } else {
+                            $rootScope.notify('Oops something went wrong. Please try again later');
+                        }
+
+                    });
+                }
+                /*$rootScope.auth.$login('password', {
+                        email: email,
+                        password: password
+                    })
+                    .then(function (user) {
+                        $rootScope.hide();
+                        $rootScope.userEmail = user.email;
+                        //$scope.names = user.email;
+                        //$scope.namez = $rootScope.userEmail;
+                        //var el = document.getElementById('content').textContent;
+                        //$window.location.href = ('/page1/page2'); //
+                        $window.location.href = ('#/page2');
+                    }, function (error) {
+                        $rootScope.hide();
+                        if (error.code == 'INVALID_EMAIL') {
+                            $rootScope.notify('Invalid Email Address');
+                        } else if (error.code == 'INVALID_PASSWORD') {
+                            $rootScope.notify('Invalid Password');
+                        } else if (error.code == 'INVALID_USER') {
+                            $rootScope.notify('Invalid User');
+                        } else {
+                            $rootScope.notify('Oops something went wrong. Please try again later');
+                        }
+                    });
+            }*/
+
         }
-    }
-])
+    ])
+    /* const user = firebase.auth().currentUser;
+const credential = firebase.auth.EmailAuthProvider.credential(
+    user.email, 
+    userProvidedPassword
+);
+
+             // Prompt the user to re-provide their sign-in credentials
+
+             user.reauthenticate(credential).then(function() {
+                 // User re-authenticated.
+             }, function(error) {
+                 // An error happened.
+             });*/
+
+//mport user from a json file
+//firebase auth:import users.json --hash-algo=scrypt --rounds=8 --mem-cost=14
 
 .controller('signupCtrl', ['$scope', '$rootScope', '$firebaseAuth', '$window',
     function($scope, $rootScope, $firebaseAuth, $window) {
@@ -115,16 +157,37 @@ angular.module('app.controllers', [])
             email: "",
             password: ""
         };
+
         $scope.createUser = function() {
             var email = this.user.email;
             var password = this.user.password;
 
-            if (!email || !password) {
-                $rootScope.notify("Please enter valid credentials");
-                return false;
-            }
+            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                if (!error) {
+                    $rootScope.hide();
+                    $rootScope.userEmail = user.email;
+                    console.log("RootScope.getAuth: " + $rootScope.getAuthEmailPass + " - rootScoprAuth:" + $rootScope.auth.getAuth().password.email);
+                    //$window.location.href = ('/page1/page5');
+                    $window.location.href = ('#/page5');
+                } else if (error.code == 'INVALID_EMAIL') {
+                    $rootScope.notify('Invalid Email Address');
+                } else if (error.code == 'EMAIL_TAKEN') {
+                    $rootScope.notify('Email Address already taken');
+                } else {
+                    $rootScope.notify('Oops something went wrong. Please try again later');
+                }
+            });
 
-            $rootScope.show('Please wait.. Registering');
+            /*firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ...
+            });*/
+            /*$rootScope.show('Please wait.. Registering');
             $rootScope.auth.$createUser(email, password, function(error, user) {
                 if (!error) {
                     $rootScope.hide();
@@ -141,7 +204,7 @@ angular.module('app.controllers', [])
                         $rootScope.notify('Oops something went wrong. Please try again later');
                     }
                 }
-            });
+});*/
         }
     }
 ])

@@ -1,11 +1,30 @@
 <script>
+    angular.module('app', ['ionic', 'firebase', 'app.controllers', 'app.routes', 'app.directives', 'app.services', ])
+
     var user = firebase.auth().currentUser;
     var prevUser = auth.currentUser;
-    document.getElementById("demo").innerHTML = user;
-    document.getElementById("memo").innerHTML = prevUser;
+    var baseUrl = 'https://ionic-survey-app.firebaseio.com/';
+    var ref = new Firebase(baseUrl);
+    var getAuthEmailPass = ref.getAuth().password.email;
+
 
     function myFunction() {
-        console.log("Sign In Success", user);
+        console.log("EXECUTE FUNCTION");
+        if (user != null) {
+            name = user.displayName;
+            email = user.email;
+            photoUrl = user.photoURL;
+            emailVerified = user.emailVerified;
+            uid = user.uid;
+
+            document.getElementById("demo").innerHTML = user.email;
+            document.getElementById("memo").innerHTML = user.displayName;
+        } else {
+            console.log("NOT SIGNED IN!", user);
+            console.log("NOT SIGNED IN!", ref.auth().currentUser);
+            console.log("NOT SIGNED IN!", getAuthEmailPass);
+
+        }
     }
 </script>
 <ion-view title="Home - Login" id="page2" style="background-color:#DFFFFF;">
