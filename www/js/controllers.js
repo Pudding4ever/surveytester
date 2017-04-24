@@ -2,13 +2,17 @@ angular.module('app.controllers', [])
 
 .controller('homeLoginCtrl', ['$scope', '$rootScope', '$firebaseAuth', '$window',
     function($scope, $rootScope, $firebaseAuth, $window) {
-        let title = user.email;
-        let title2 = $rootScope.userEmail;
+
+        //let title2 = $rootScope.userEmail;
         $rootScope.logout = function() {
             $rootScope.auth.$logout();
-            //$rootScope.checkSession();
+            $rootScope.checkSession();
         };
+        let title = user.email;
 
+        function title(email) {
+            return email;
+        }
         $rootScope.checkSession = function() {
             var auth = new FirebaseSimpleLogin(authRef, function(error, user) {
                 if (error) {
@@ -18,7 +22,8 @@ angular.module('app.controllers', [])
                 } else if (user) {
                     // user authenticated with Firebase
                     $rootScope.userEmail = user.email;
-                    $window.location.href = ('#/page1/page8');
+                    title(user.email);
+                    $window.location.href = ('#/page1/page2');
                 } else {
                     // user is logged out
                     $rootScope.userEmail = null;
@@ -77,6 +82,7 @@ angular.module('app.controllers', [])
         $scope.validateUser = function() {
             $rootScope.show('Please wait.. Authenticating');
             var email = this.user.email;
+            let title3 = email;
             var password = this.user.password;
             if (!email || !password) {
                 $rootScope.notify("Please enter valid credentials");
@@ -89,6 +95,8 @@ angular.module('app.controllers', [])
                 .then(function(user) {
                     $rootScope.hide();
                     $rootScope.userEmail = user.email;
+                    var title = user.email;
+                    var title2 = email;
                     $window.location.href = ('#/page1/page2'); //
                 }, function(error) {
                     $rootScope.hide();
@@ -120,7 +128,7 @@ angular.module('app.controllers', [])
                 $rootScope.notify("Please enter valid credentials");
                 return false;
             }
-
+            console.log($firebaseAuth(authref));
             $rootScope.show('Please wait.. Registering');
             $rootScope.auth.$createUser(email, password, function(error, user) {
                 if (!error) {
