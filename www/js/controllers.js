@@ -138,7 +138,7 @@ const credential = firebase.auth.EmailAuthProvider.credential(
                         if (!error) {
                             $rootScope.hide();
                             $rootScope.userEmail = user.email;
-                            console.log("(Login)rootScopeAuth:" + $rootScope.auth.getAuth().password.email + );
+                            console.log("(Login)rootScopeAuth:" + $rootScope.auth.getAuth().password.email);
                             //$window.location.href = ('/page1/page5');
                             $window.location.href = ('#/page2');
                         } else {
