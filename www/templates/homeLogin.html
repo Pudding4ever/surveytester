@@ -1,18 +1,10 @@
-<script>
-    angular.module('bindExample', [])
-
-    .controller('ExampleController', ['$scope', '$rootScope', '$firebaseAuth', function($scope, $rootScope, $firebaseAuth) {
-        $scope.name = 'Whirled';
-        $rootScope.userEmail = user.email;
-    }]);
-</script>
 <ion-view title="Home - Login" id="page2" style="background-color:#DFFFFF;">
     <ion-content padding="true" class="has-header" ng-controller="homeLoginCtrl">
         <div id="homeLogin-button-bar1" class="button-bar"></div>
         <div class="list card" id="homeLogin-card22">
             <ion-item class="item-avatar" id="homeLogin-list-item7">
 
-                <div ng-controller="ExampleController">
+                <div ng-controller="loginCtrl">
                     Hello, <span ng-bind="userEmail"></span>!
                 </div>
             </ion-item>

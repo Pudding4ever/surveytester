@@ -6,7 +6,7 @@ angular.module('app.controllers', [])
     function($scope, $rootScope, $stateParams, $window) {
         $rootScope.logout = function() {
             $rootScope.auth.$logout();
-            //$window.location.href = ('#/page2');
+            $window.location.href = ('#/page8');
         }
     }
 ])
@@ -70,8 +70,8 @@ angular.module('app.controllers', [])
                 .then(function(user) {
                     $rootScope.hide();
                     $rootScope.userEmail = user.email;
-                    $window.location.href = ('/page1/page2'); //
-                    //$window.location.href = ('#/page2');
+                    //$window.location.href = ('/page1/page2'); //
+                    $window.location.href = ('#/page2');
                 }, function(error) {
                     $rootScope.hide();
                     if (error.code == 'INVALID_EMAIL') {
@@ -108,8 +108,8 @@ angular.module('app.controllers', [])
                 if (!error) {
                     $rootScope.hide();
                     $rootScope.userEmail = user.email;
-                    $window.location.href = ('/page1/page5');
-                    //$window.location.href = ('#/page2');
+                    //$window.location.href = ('/page1/page5');
+                    $window.location.href = ('#/page5');
                 } else {
                     $rootScope.hide();
                     if (error.code == 'INVALID_EMAIL') {
@@ -162,10 +162,15 @@ angular.module('app.controllers', [])
 ])
 
 .controller('createQuestionCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-    // You can include any angular dependencies as parameters for this function
-    // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams) {
+        // You can include any angular dependencies as parameters for this function
+        // TIP: Access Route Parameters for your page via $stateParams.parameterName
+        function($scope, $stateParams) {
 
 
-    }
-])
+        }
+    ])
+    /*
+    .controller('ExampleController', ['$scope', '$rootScope', '$firebaseAuth', function($scope, $rootScope, $firebaseAuth) {
+        $scope.name = 'Whirled';
+        $rootScope.userEmail = user.email;
+    }]);*/
