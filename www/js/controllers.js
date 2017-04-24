@@ -57,6 +57,8 @@ function ($scope, $stateParams) {
         password: ""
       };
       $scope.createUser = function () {
+        console.log("create user called");
+
         var username = this.user.username;
         var email = this.user.email;
         var password = this.user.password;
