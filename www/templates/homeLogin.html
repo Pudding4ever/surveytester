@@ -3,8 +3,10 @@
         <div id="homeLogin-button-bar1" class="button-bar"></div>
         <div class="list card" id="homeLogin-card22">
             <ion-item class="item-avatar" id="homeLogin-list-item7">
-                <h2>[Username]</h2>
-                <p>Welcome [Username]</p>
+
+                <div ng-controller="ExampleController">
+                    Hello, <span ng-bind="userEmail"></span>!
+                </div>
             </ion-item>
             <a ui-sref="tabsController.home" id="homeLogin-button8" class="button button-positive  button-block" ng-click="logout()">Logout</a>
         </div>
