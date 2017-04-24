@@ -89,7 +89,7 @@ angular.module('app.controllers', [])
                 .then(function(user) {
                     $rootScope.hide();
                     $rootScope.userEmail = user.email;
-                    $window.location.href = ('/page1/page2'); //
+                    $window.location.href = ('#/page1/page2'); //
                 }, function(error) {
                     $rootScope.hide();
                     if (error.code == 'INVALID_EMAIL') {
@@ -126,7 +126,7 @@ angular.module('app.controllers', [])
                 if (!error) {
                     $rootScope.hide();
                     $rootScope.userEmail = user.email;
-                    $window.location.href = ('/page1/page5');
+                    $window.location.href = ('#/page1/page5');
                 } else {
                     $rootScope.hide();
                     if (error.code == 'INVALID_EMAIL') {
