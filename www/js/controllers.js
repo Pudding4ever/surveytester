@@ -69,6 +69,7 @@ function ($scope, $stateParams) {
           if (!error) {
             $rootScope.hide();
             $rootScope.userEmail = user.email;
+            $rootScope.notify('Successful Registration');
             $window.location.href = ('#/page12');
           }
           else {
