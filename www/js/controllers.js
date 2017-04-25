@@ -32,13 +32,13 @@ angular.module('app.controllers', [])
                         $window.location.href = ('#/page8'); //see if this show be in inner or outer function
                     } else {
                         console.log("LOGGING OUT! - User:Null", user);
-                        $window.location.href = ('#/page8'); //see if this show be in inner or outer function
+                        //$window.location.href = ('#/page8'); //see if this show be in inner or outer function
                     }
                 });
 
             }).catch(function(error) {
                 alert(error.code + " - " + error.message);
-                $window.location.href = ('#/page8'); //see if this show be in inner or outer function
+                //$window.location.href = ('#/page8'); //see if this show be in inner or outer function
             });
         };
     }
@@ -113,39 +113,39 @@ angular.module('app.controllers', [])
                 if (!error) {
                     $rootScope.hide();
                     $rootScope.userEmail = user.email;
-                    console.log("(Login)rootScopeAuth:" + $rootScope.auth.getAuth().password.email);
                     //$window.location.href = ('/page1/page5');
                     $window.location.href = ('#/page2');
+                    console.log("(Login):" + user);
                 } else {
                     switch (error.code) {
                         case 'auth/invalid-email':
                             {
                                 alert(error.code + " - " + error.message);
-                                //$window.location.href = ('#/page5');
+                                $window.location.href = ('#/page5');
                                 break;
                             }
                         case 'auth/user-not-found':
                             {
                                 alert(error.code + " - " + error.message);
-                                //$window.location.href = ('#/page5');
+                                $window.location.href = ('#/page5');
                                 break;
                             }
                         case 'auth/wrong-password':
                             {
                                 alert(error.code + " - " + error.message);
-                                //$window.location.href = ('#/page5');
+                                $window.location.href = ('#/page5');
                                 break;
                             }
                         case 'auth/user-not-found':
                             {
                                 alert(error.code + " - " + error.message);
-                                //$window.location.href = ('#/page5');
+                                $window.location.href = ('#/page5');
                                 break;
                             }
                         default:
                             {
                                 alert(error.code + " - " + error.message);
-                                //$window.location.href = ('#/page5');
+                                $window.location.href = ('#/page5');
                                 break;
                             }
                     }
@@ -174,41 +174,41 @@ angular.module('app.controllers', [])
                 if (!error) {
                     $rootScope.hide();
                     $rootScope.userEmail = user.email;
-                    console.log("RootScope.getAuth: " + $rootScope.getAuthEmailPass + " - rootScoprAuth:" + $rootScope.auth.getAuth().password.email);
                     //$window.location.href = ('/page1/page5');
                     $window.location.href = ('#/page5');
+                    console.log("(Login):" + user);
                 } else {
                     switch (error.code) {
                         case 'auth/email-already-in-use':
                             {
                                 alert(error.code + " - " + error.message);
-                                //$window.location.href = ('#/page6');
+                                $window.location.href = ('#/page6');
                                 break;
                             }
                         case 'auth/invalid-email':
                             {
                                 alert(error.code + " - " + error.message);
-                                //$window.location.href = ('#/page6');
+                                $window.location.href = ('#/page6');
 
                                 break;
                             }
                         case 'auth/email-already-in-use':
                             {
                                 alert(error.code + " - " + error.message);
-                                //$window.location.href = ('#/page6');
+                                $window.location.href = ('#/page6');
                                 break;
                             }
                         case 'auth/weak-password':
                             {
                                 alert(error.code + " - " + error.message);
-                                //$window.location.href = ('#/page6');
+                                $window.location.href = ('#/page6');
 
                                 break;
                             }
                         default:
                             {
                                 alert(error.code + " - " + error.message);
-                                //$window.location.href = ('#/page6');
+                                $window.location.href = ('#/page6');
 
                                 break;
                             }
