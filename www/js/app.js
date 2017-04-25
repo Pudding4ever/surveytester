@@ -60,6 +60,7 @@ angular.module('app', ['ionic', 'firebase', 'app.controllers', 'app.routes', 'ap
         };
 
         $rootScope.checkSession = function() {
+
             var auth = new FirebaseSimpleLogin(authRef, function(error, user) {
                 if (error) {
                     // no action yet.. redirect to default route
@@ -75,7 +76,8 @@ angular.module('app', ['ionic', 'firebase', 'app.controllers', 'app.routes', 'ap
                     $window.location.href = '#/auth/signin';
                 }
             });
-        }
+
+        };
     });
 })
 
