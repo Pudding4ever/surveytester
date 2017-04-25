@@ -29,10 +29,10 @@ angular.module('app.controllers', [])
                 firebase.auth().onAuthStateChanged(function(user) {
                     if (user) {
                         console.log("LOGGING OUT! - User", user);
-                        $window.location.href = ('#/page8'); //see if this show be in inner or outer function
+                        //$window.location.href = ('#/page8'); //see if this show be in inner or outer function
                     } else {
                         console.log("LOGGING OUT! - User:Null", user);
-                        //$window.location.href = ('#/page8'); //see if this show be in inner or outer function
+                        $window.location.href = ('#/page8'); //see if this show be in inner or outer function
                     }
                 });
 
