@@ -18,8 +18,7 @@
             /*document.getElementById("demo").innerHTML = email;
             document.getElementById("memo").innerHTML = user.email;*/
         } else {
-            console.log("NOT SIGNED IN!", user);
-            console.log("NOT SIGNED IN!", ref.auth().currentUser);
+            console.log("Hello ANONYMOUS", ref.auth().currentUser);
             //console.log("NOT SIGNED IN!", getAuthEmailPass);
 
         }
@@ -32,11 +31,8 @@
             <ion-item class="item-avatar" id="homeLogin-list-item7">
 
                 <div ng-controller="homeLoginCtrl">
-                    Hello, <span ng-bind="email"></span>! - <span ng-bind="user.email"></span>
-                </div>
-                <div>
-                    <p id="memo" ng-controller="homeLoginCtrl"></p>
-                    <p id="demo" ng-controller="homeLoginCtrl"></p>
+                    <h2>Hello,
+                        <p id="memo" ng-controller="homeLoginCtrl"></p>!</h2>
                 </div>
             </ion-item>
             <a id="homeLogin-button8" class="button button-positive  button-block" ng-click="logout()">Logout</a>

@@ -14,25 +14,22 @@ angular.module('app.controllers', [])
                 console.log("Sign In Success", user);
                 if (user != null) {
                     email = user.email;
-                    document.getElementById("demo").innerHTML = user.email;
                     document.getElementById("memo").innerHTML = email;
                 } else {
-                    email = "Anonymous";
-                    document.getElementById("demo").innerHTML = "Anonymous";
-                    document.getElementById("memo").innerHTML = "Anonymous";
+                    document.getElementById("memo").innerHTML = 'Anonymous';
                 }
             } else {
-                console.log("NOT SIGNED IN!", user);
+                console.log("Hello ANONYMOUS", user);
             }
 
             $rootScope.logout = function() {
                 firebase.auth().signOut().then(function() { //fix
                     firebase.auth().onAuthStateChanged(function(user) {
                         if (user) {
-                            console.log("LOGGING OUT!", user);
+                            console.log("LOGGING OUT! - User", user);
                             $window.location.href = ('#/page8'); //see if this show be in inner or outer function
                         } else {
-                            console.log("LOGGING OUT!", user);
+                            console.log("LOGGING OUT! - User:Null", user);
                             $window.location.href = ('#/page8'); //see if this show be in inner or outer function
 
                         }
