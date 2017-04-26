@@ -6,5 +6,7 @@
     "dependencies": {
         "express": "~4.4.3",
         "firebase": "~3.8.0"
+            //"survey-angular": "^0.12.11",
+            //"survey-jquery": "^0.12.11"
     }
 }
